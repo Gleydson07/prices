@@ -1,0 +1,288 @@
+{
+    "products": [
+        {
+            "id": 1,
+            "description":"Frango",
+            "metric": "kg",
+            "price": 7.2
+        },
+        {
+            "id": 2,
+            "description":"Galeto",
+            "metric": "kg",
+            "price": 7.6
+        },
+        {
+            "id": 3,
+            "description":"Galinha Velha",
+            "metric": "kg",
+            "price": 7.9
+        },
+        {
+            "id": 4,
+            "description":"AP",
+            "metric": "kg",
+            "price": 4.6
+        }
+    ],
+
+    "clients": [
+        {
+            "name": "Gleydson Albuquerque",
+            "cpf": "525.545.964-55",
+            "price_per_product": [
+                {
+                    "product": 1,
+                    "price": 8.30
+                },
+                {
+                    "product": 2,
+                    "price": 8.50
+                },
+                {
+                    "product": 3,
+                    "price": 9.30
+                },
+                {
+                    "product": 4,
+                    "price": 4.30
+                }
+            ],
+            "address": [
+                {
+                    "place": "Rua C, Nº 01B",
+                    "city": "Viçosa",
+                    "uf": "AL"
+                }
+            ],
+            "contacts": [
+                {
+                    "description":"Casa",
+                    "fone": "82 98111-4246"
+                },
+                {
+                    "description": "Trabalho",
+                    "fone": "82 3283-4544"
+                }
+            ]
+        },
+
+        {
+            "name": "João dos Santos",
+            "cpf": "926.945.964-55",
+            "price_per_product": [
+                {
+                    "product": 1,
+                    "price": 8.70
+                },
+                {
+                    "product": 2,
+                    "price": 8.30
+                },
+                {
+                    "product": 3,
+                    "price": 7.30
+                },
+                {
+                    "product": 4,
+                    "price": 4.30
+                }
+            ],
+            "address": [
+                {
+                    "place": "Rua João Pessoa, Nº 18",
+                    "city": "Pilar",
+                    "uf": "AL"
+                }
+            ],
+            "contacts": [
+                {
+                    "description":"Casa",
+                    "fone": "82 98144-3656"
+                },
+                {
+                    "description": "Trabalho",
+                    "fone": "82 3893-4544"
+                }
+            ]
+        },
+
+        {
+            "name": "Maria José Santos",
+            "cpf": "126.145.964-55",
+            "price_per_product": [
+                {
+                    "product": 1,
+                    "price": 8.90
+                },
+                {
+                    "product": 2,
+                    "price": 8.50
+                },
+                {
+                    "product": 3,
+                    "price": 7.80
+                },
+                {
+                    "product": 4,
+                    "price": 4.10
+                }
+            ],
+            "address": [
+                {
+                    "place": "Rua João Pessoa, Nº 24",
+                    "city": "Maceió",
+                    "uf": "AL"
+                }
+            ],
+            "contacts": [
+                {
+                    "description":"Casa",
+                    "fone": "82 99934-3656"
+                },
+                {
+                    "description": "Trabalho",
+                    "fone": "82 3113-4544"
+                }
+            ]
+        }
+
+    ],
+
+    "deployees": [
+        {
+            "name": "Firmino dos Santos",
+            "cpf": "511.115.224-55",
+            "office": "Entregador",
+            "address": [
+                {
+                    "place": "Rua Juarema, Nº 20",
+                    "city": "Rio Largo",
+                    "uf": "AL"
+                }
+            ],
+            "contacts": [
+                {
+                    "description":"Casa",
+                    "fone": "82 99999-4246"
+                }
+            ]
+        },
+        {
+            "name": "João dos Santos",
+            "cpf": "926.945.964-55",
+            "office": "Atendente",
+            "address": [
+                {
+                    "place": "Rua João José, Nº 55",
+                    "city": "Pilar",
+                    "uf": "AL"
+                }
+            ],
+            "contacts": [
+                {
+                    "description":"Casa",
+                    "fone": "82 98144-3996"
+                }
+            ]
+        },
+        {
+            "name": "Rivaldo Ferreira",
+            "cpf": "126.145.964-55",
+            "office": "Administrador",
+            "address": [
+                {
+                    "place": "Rua João Pessoa, Nº 24",
+                    "city": "Maceió",
+                    "uf": "AL"
+                }
+            ],
+            "contacts": [
+                {
+                    "description":"Casa",
+                    "fone": "82 99934-3656"
+                },
+                {
+                    "description": "Trabalho",
+                    "fone": "82 3113-4544"
+                }
+            ]
+        }
+
+    ],
+
+    "access": [
+        {
+            "level": "Administrador",
+            "auth": [
+                {
+                    "clients": [
+                        {
+                            "read": true,
+                            "write": true
+                        }
+                    ]
+                },
+                {
+                    "products": [
+                        {
+                            "read": true,
+                            "write": true
+                        }
+                    ]
+                },
+                {
+                    "deployeers": [
+                        {
+                            "read": true,
+                            "write": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "level": "Vendedor",
+            "auth": [
+                {
+                    "clients": [
+                        {
+                            "read": true,
+                            "write": false
+                        }
+                    ]
+                },
+                {
+                    "products": [
+                        {
+                            "read": true,
+                            "write": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "level": "Caixa",
+            "auth": [
+                {
+                    "clients": [
+                        {
+                            "read": true,
+                            "write": false
+                        }
+                    ]
+                },
+                {
+                    "products": [
+                        {
+                            "read": true,
+                            "write": false
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+
+}
