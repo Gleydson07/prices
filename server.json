@@ -28,7 +28,7 @@
 
     "clients": [
         {
-            "name": "Gleydson Albuquerque",
+            "name": "Gleydson Santos",
             "cpf": "525.545.964-55",
             "price_per_product": [
                 {
@@ -50,15 +50,15 @@
             ],
             "address": [
                 {
-                    "place": "Rua C, Nº 01B",
+                    "place": "Rua N, Nº 101B",
                     "city": "Viçosa",
-                    "uf": "AL"
+                    "uf": "MG"
                 }
             ],
             "contacts": [
                 {
                     "description":"Casa",
-                    "fone": "82 98111-4246"
+                    "fone": "82 99999-4246"
                 },
                 {
                     "description": "Trabalho",
