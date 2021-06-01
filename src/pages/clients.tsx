@@ -1,15 +1,27 @@
 import { Box, Flex, Icon, Input, Text, Table, TableCaption, Tbody, Th, Thead, Tr, Td, Link, HStack, Spinner, Button } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 
-import { AiOutlineSearch, AiFillEdit, AiFillDelete, AiOutlinePlus } from 'react-icons/ai'
+import { AiOutlineSearch, AiFillEdit, AiFillDelete, AiOutlineEye, AiOutlinePlus } from 'react-icons/ai'
 import { Header } from '../components/Header';
 import { api } from '../services/api';
 
-interface IProductData {
-    id: number;
-    description: string;
-    metric: string;
+type PricePerProduct = {
+    product: number;
     price: number;
+}
+
+type AddressData = {
+    id: number;
+    place: string;
+    city: string;
+    uf: string;
+}
+
+interface IClientData {
+    id: number;
+    name: string;
+    address: AddressData[];
+    prices: PricePerProduct[];
 }
 
 const dateFormatted = new Intl.NumberFormat('pt-BR',{
@@ -17,34 +29,33 @@ const dateFormatted = new Intl.NumberFormat('pt-BR',{
     currency: 'BRL'
 })
 
-export default function Products(){
-    const [products, setProducts] = useState<IProductData[]>([])
-    const [filteredProducts, setFilteredProducts] = useState<IProductData[]>([])
+export default function Clients(){
+    const [clients, setClients] = useState<IClientData[]>([])
+    const [filteredClients, setFilteredClients] = useState<IClientData[]>([])
     const [search, setSearch] = useState('');
 
     useEffect(() => {
         async function getProduct(){
-            const data = await api.get('products')
+            const data = await api.get<IClientData[]>('clients')
             .then(response => response.data)
 
-            const dataOrdered:IProductData[] = data.sort(function (a,b) {
-                    if(a.description < b.description) { return -1}
-                    if(a.description > b.description) { return 1}
+            const dataOrdered:IClientData[]  = data.sort(function (a,b) {
+                    if(a.name < b.name) { return -1}
+                    if(a.name > b.name) { return 1}
                     return 0
                 }
             )
 
-            const result = dataOrdered.map((product:IProductData) => {
+            const result = dataOrdered.map((client:IClientData) => {
                 return {
-                    id: product.id,
-                    description: product.description,
-                    metric: product.metric,
-                    price: dateFormatted.format(product.price), 
+                    id: client.id,
+                    name: client.name,
+                    address: client.address,
+                    prices: client.prices, 
                 }               
             })
-            
-            setProducts(result);
-            setFilteredProducts(result)
+            setClients(result);
+            setFilteredClients(result)
         }        
         getProduct();
 
@@ -52,12 +63,12 @@ export default function Products(){
 
     useEffect(() => {
         let dataFiltered = [];
-            products.filter(product => {
-                if(product.description.toLowerCase().includes(search.toLowerCase())){
-                    dataFiltered.push(product)
+            clients.filter(client => {
+                if(client.name.toLowerCase().includes(search.toLowerCase())){
+                    dataFiltered.push(client)
                 }
             })
-            setFilteredProducts(dataFiltered)
+            setFilteredClients(dataFiltered)
 
     }, [search])
 
@@ -121,34 +132,44 @@ export default function Products(){
                         }}
                     />
                 </Flex>
-                 
-
+                    
                 <Table
                     variant="striped"
                     colorScheme="whiteAlpha"
                 >
                     <TableCaption>
                         {
-                            (filteredProducts.length > 0 && search.length > 0)
-                                ? `Sua busca resultou em ${filteredProducts.length} de ${products.length} produtos`
-                                : `Total de produtos listados: ${filteredProducts.length}`
+                            (filteredClients.length > 0 && search.length > 0)
+                                ? `Sua busca resultou em ${filteredClients.length} de ${clients.length} clientes`
+                                : `Total de clientes listados: ${filteredClients.length}`
                         }
                     </TableCaption>
                     <Thead>
                         <Tr>
-                            <Th>Descrição</Th>
-                            <Th isNumeric>Preço</Th>
-                            <Th isNumeric>Unidade</Th>
+                            <Th>Nome</Th>
+                            <Th >Endereço</Th>
+                            <Th >Preços</Th>
                             <Th isNumeric>Opções</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
-                    {filteredProducts.map(product => {
+                    {filteredClients.map(client => {
                         return (
-                            <Tr key={product.id} _hover={{color: "gray.400"}}>
-                                <Td>{product.description}</Td>
-                                <Td isNumeric>{product.price}</Td>
-                                <Td isNumeric>{product.metric}</Td>
+                            <Tr key={client.id} _hover={{color: "gray.400"}}>
+                                <Td>{client.name}</Td>
+                                <Td >
+                                    {`${client.address[0].place}, 
+                                    ${client.address[0].city} - 
+                                    ${client.address[0].uf}`}
+                                </Td>
+                                <Td>
+                                    <Link 
+                                        as={AiOutlineEye} 
+                                        fontSize="2xl"
+                                        color="gray.400"
+                                        _hover={{color:"gray.50"}}
+                                    />
+                                </Td>
                                 <Td >
                                     <HStack 
                                         fontSize="2xl" 

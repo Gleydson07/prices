@@ -1,15 +1,15 @@
-import { Box, Flex, Icon, Input, Text, Table, TableCaption, Tbody, Th, Thead, Tr, Td, Link, HStack, Spinner, Button } from '@chakra-ui/react';
+import { Box, Flex, Icon, Input, Text, Table, TableCaption, Tbody, Th, Thead, Tr, Td, Link, HStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 
 import { AiOutlineSearch, AiFillEdit, AiFillDelete, AiOutlinePlus } from 'react-icons/ai'
 import { Header } from '../components/Header';
 import { api } from '../services/api';
 
-interface IProductData {
+interface IEmployeeData {
     id: number;
-    description: string;
-    metric: string;
-    price: number;
+    name: string;
+    cpf: string;
+    office: string;
 }
 
 const dateFormatted = new Intl.NumberFormat('pt-BR',{
@@ -17,34 +17,33 @@ const dateFormatted = new Intl.NumberFormat('pt-BR',{
     currency: 'BRL'
 })
 
-export default function Products(){
-    const [products, setProducts] = useState<IProductData[]>([])
-    const [filteredProducts, setFilteredProducts] = useState<IProductData[]>([])
+export default function Employees(){
+    const [employees, setEmployees] = useState<IEmployeeData[]>([])
+    const [filteredEmployees, setFilteredEmployees] = useState<IEmployeeData[]>([])
     const [search, setSearch] = useState('');
 
     useEffect(() => {
         async function getProduct(){
-            const data = await api.get('products')
+            const data = await api.get('employees')
             .then(response => response.data)
 
-            const dataOrdered:IProductData[] = data.sort(function (a,b) {
-                    if(a.description < b.description) { return -1}
-                    if(a.description > b.description) { return 1}
+            const dataOrdered:IEmployeeData[] = data.sort(function (a,b) {
+                    if(a.name < b.name) { return -1}
+                    if(a.name > b.name) { return 1}
                     return 0
                 }
             )
 
-            const result = dataOrdered.map((product:IProductData) => {
+            const result = dataOrdered.map((employee:IEmployeeData) => {
                 return {
-                    id: product.id,
-                    description: product.description,
-                    metric: product.metric,
-                    price: dateFormatted.format(product.price), 
+                    id: employee.id,
+                    name: employee.name,
+                    cpf: employee.cpf,
+                    office: employee.office, 
                 }               
             })
-            
-            setProducts(result);
-            setFilteredProducts(result)
+            setEmployees(result);
+            setFilteredEmployees(result)
         }        
         getProduct();
 
@@ -52,12 +51,12 @@ export default function Products(){
 
     useEffect(() => {
         let dataFiltered = [];
-            products.filter(product => {
-                if(product.description.toLowerCase().includes(search.toLowerCase())){
-                    dataFiltered.push(product)
+            employees.filter(employee => {
+                if(employee.name.toLowerCase().includes(search.toLowerCase())){
+                    dataFiltered.push(employee)
                 }
             })
-            setFilteredProducts(dataFiltered)
+            setFilteredEmployees(dataFiltered)
 
     }, [search])
 
@@ -80,7 +79,7 @@ export default function Products(){
                             fontSize="lg"
                             color="gray.50"
                         >
-                            Clientes
+                            Funcionários
                         </Text>
                         <Flex
                             position="relative"
@@ -121,34 +120,33 @@ export default function Products(){
                         }}
                     />
                 </Flex>
-                 
-
+                    
                 <Table
                     variant="striped"
                     colorScheme="whiteAlpha"
                 >
                     <TableCaption>
                         {
-                            (filteredProducts.length > 0 && search.length > 0)
-                                ? `Sua busca resultou em ${filteredProducts.length} de ${products.length} produtos`
-                                : `Total de produtos listados: ${filteredProducts.length}`
+                            (filteredEmployees.length > 0 && search.length > 0)
+                                ? `Sua busca resultou em ${filteredEmployees.length} de ${employees.length} employeees`
+                                : `Total de employeees listados: ${filteredEmployees.length}`
                         }
                     </TableCaption>
                     <Thead>
                         <Tr>
-                            <Th>Descrição</Th>
-                            <Th isNumeric>Preço</Th>
-                            <Th isNumeric>Unidade</Th>
+                            <Th>Nome</Th>
+                            <Th >CPF</Th>
+                            <Th >Perfil</Th>
                             <Th isNumeric>Opções</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
-                    {filteredProducts.map(product => {
+                    {filteredEmployees.map(employee => {
                         return (
-                            <Tr key={product.id} _hover={{color: "gray.400"}}>
-                                <Td>{product.description}</Td>
-                                <Td isNumeric>{product.price}</Td>
-                                <Td isNumeric>{product.metric}</Td>
+                            <Tr key={employee.id} _hover={{color: "gray.400"}}>
+                                <Td>{employee.name}</Td>
+                                <Td>{employee.cpf}</Td>
+                                <Td>{employee.office}</Td>
                                 <Td >
                                     <HStack 
                                         fontSize="2xl" 

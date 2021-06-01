@@ -1,11 +1,11 @@
-import { Box, Divider, Flex, Grid, HStack, Icon, Link, Text } from '@chakra-ui/react';
+import { Divider, Flex, Grid, Icon, Link, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import {AiOutlineUnorderedList, AiOutlineUserAdd, AiOutlinePlus, AiOutlineArrowLeft} from 'react-icons/ai'
+import {AiOutlineArrowLeft} from 'react-icons/ai'
 import {GiChicken} from 'react-icons/gi'
 import {ImExit} from 'react-icons/im'
-import {MdAttachMoney, MdPersonPin, MdBusinessCenter, MdLock} from 'react-icons/md'
+import {MdPersonPin, MdBusinessCenter} from 'react-icons/md'
 import { CardDashboard } from '../CardDashboard';
 
 export function Header(){
@@ -28,7 +28,7 @@ export function Header(){
                         my="auto"
                         color="gray.200"
                         _hover={{color:"gray.400"}}
-                        onClick={e => router.push('/dashboard')}
+                        onClick={() => router.push('/dashboard')}
                     >
                         <Icon 
                             as={AiOutlineArrowLeft}
@@ -58,7 +58,7 @@ export function Header(){
                         mx="8"
                         my="auto"
                         color="gray.200"
-                        onClick={e => router.push('/')}
+                        onClick={() => router.push('/')}
                         _hover={{color:"gray.400"}}
                     >
                         <Icon 
@@ -77,19 +77,19 @@ export function Header(){
                 <CardDashboard 
                     iconCard={MdPersonPin} 
                     title="Clientes"
-                    onClick={e => router.push('/clients')}
+                    onClick={() => router.push('/clients')}
                 />
             
                 <CardDashboard 
                     iconCard={MdBusinessCenter} 
                     title="Funcionários"
-                    onClick={e => router.push('/deployees')}
+                    onClick={() => router.push('/employees')}
                 />
             
                 <CardDashboard 
                     iconCard={GiChicken} 
                     title="Produtos"
-                    onClick={e => router.push('/products')}
+                    onClick={() => router.push('/products')}
                 />
             
             </Grid>

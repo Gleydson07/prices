@@ -28,6 +28,7 @@
 
     "clients": [
         {
+            "id": 1,
             "name": "Gleydson Santos",
             "cpf": "525.545.964-55",
             "price_per_product": [
@@ -68,6 +69,7 @@
         },
 
         {
+            "id": 2,
             "name": "João dos Santos",
             "cpf": "926.945.964-55",
             "price_per_product": [
@@ -108,7 +110,8 @@
         },
 
         {
-            "name": "Maria José Santos",
+            "id": 3,
+            "name": "Aria José Santos",
             "cpf": "126.145.964-55",
             "price_per_product": [
                 {
@@ -149,8 +152,9 @@
 
     ],
 
-    "deployees": [
+    "employees": [
         {
+            "id": 1,
             "name": "Firmino dos Santos",
             "cpf": "511.115.224-55",
             "office": "Entregador",
@@ -169,6 +173,7 @@
             ]
         },
         {
+            "id": 2,
             "name": "João dos Santos",
             "cpf": "926.945.964-55",
             "office": "Atendente",
@@ -187,6 +192,7 @@
             ]
         },
         {
+            "id": 3,
             "name": "Rivaldo Ferreira",
             "cpf": "126.145.964-55",
             "office": "Administrador",
